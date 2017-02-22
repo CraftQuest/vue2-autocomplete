@@ -153,7 +153,6 @@
       },
 
       input(val){
-        this.showList = true;
 
         // Callback Event
         this.onInput ? this.onInput(val) : null
@@ -254,11 +253,13 @@
 
       getData(val){
 
-
         let self = this;
 
-        if (val.length < this.min) return;
-
+        // Hide the list if the value isn't minimum length -- aaw / 2017.02.20
+        if (val.length < this.min) {
+          this.showList = false;
+          return;
+        }
         if(this.url != null){
 
           // Callback Event
@@ -280,17 +281,23 @@
             if(data.lengthComputable){
 
               // Callback Event
-              this.onAjaxProgress ? this.onAjaxProgress(data) : null
+              // Should be self. not this. -- aaw / 2017.02.20
+              self.onAjaxProgress ? self.onAjaxProgress(data) : null
             }
           });
 
           ajax.addEventListener('loadend', function (data) {
-            let json = JSON.parse(this.responseText);
+            if (this.responseText !== undefined && this.responseText && this.responseText.length > 0) {
+              let json = JSON.parse(this.responseText);
 
-            // Callback Event
-            this.onAjaxLoaded ? this.onAjaxLoaded(json) : null
+              // Callback Event
+              // Should be self. not this. -- aaw / 2017.02.20
+              self.onAjaxLoaded ? self.onAjaxLoaded(json) : null
 
-            self.json = self.process ? self.process(json) : json;
+              self.json = self.process ? self.process(json) : json;
+              // Only show the list if there is data to display -- aaw / 2017.02.20
+              self.showList = (self.json !== undefined && self.json && self.json.length > 0);
+            }
           });
 
         }
