@@ -194,6 +194,9 @@
       focus(e){
         this.focusList = 0;
 
+        // If they click on our field, act as if they typed something to show the list / aaw - 2017.02.23
+        this.input(this.type);
+
         // Callback Event
         this.onFocus ? this.onFocus(e) : null
       },
@@ -255,7 +258,7 @@
 
         let self = this;
 
-        // Hide the list if the value isn't minimum length -- aaw / 2017.02.20
+        // Hide the list if the value isn't minimum length / aaw - 2017.02.20
         if (val.length < this.min) {
           this.showList = false;
           return;
@@ -281,7 +284,7 @@
             if(data.lengthComputable){
 
               // Callback Event
-              // Should be self. not this. -- aaw / 2017.02.20
+              // Should be self. not this. / aaw - 2017.02.20
               self.onAjaxProgress ? self.onAjaxProgress(data) : null
             }
           });
@@ -291,11 +294,11 @@
               let json = JSON.parse(this.responseText);
 
               // Callback Event
-              // Should be self. not this. -- aaw / 2017.02.20
+              // Should be self. not this. / aaw - 2017.02.20
               self.onAjaxLoaded ? self.onAjaxLoaded(json) : null
 
               self.json = self.process ? self.process(json) : json;
-              // Only show the list if there is data to display -- aaw / 2017.02.20
+              // Only show the list if there is data to display / aaw - 2017.02.20
               self.showList = (self.json !== undefined && self.json && self.json.length > 0);
             }
           });
