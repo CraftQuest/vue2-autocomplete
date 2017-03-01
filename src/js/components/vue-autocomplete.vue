@@ -259,7 +259,7 @@
         let self = this;
 
         // Hide the list if the value isn't minimum length / aaw - 2017.02.20
-        if (val.length < this.min) {
+        if ((!val) || (val.length < this.min)) {
           this.showList = false;
           return;
         }
