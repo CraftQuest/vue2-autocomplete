@@ -2,7 +2,9 @@
 <template>
   <div :class="(className ? className + '-wrapper ' : '') + 'autocomplete-wrapper'">
     <input  type="text"
+            :aria-label="name"
             :id="id"
+            :name="name"
             :class="(className ? className + '-input ' : '') + 'autocomplete-input'"
             :placeholder="placeholder"
             v-model="type"
@@ -69,6 +71,7 @@
 
     props: {
       id: String,
+      name: String,
       className: String,
       placeholder: String,
 
