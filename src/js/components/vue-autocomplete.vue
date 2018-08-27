@@ -5,7 +5,7 @@
             :aria-label="name"
             :id="id"
             :name="name"
-            :class="(className ? className + '-input ' : '') + 'autocomplete-input'"
+            :class="(className ? className : '') + 'autocomplete-input'"
             :placeholder="placeholder"
             v-model="type"
             @input="input(type)"
